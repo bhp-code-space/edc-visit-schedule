@@ -33,7 +33,7 @@ jobs:
           pip install coverage
           pip install Django==3.1.14
       - name: Flake8 Lint
-        run: flake8 ${{ github.workspace }}/edc_data_manager
+        run: flake8 ${{ github.workspace }}/edc_visit_schedule
       - name: Run Tests
         run: |
           coverage run manage.py test
