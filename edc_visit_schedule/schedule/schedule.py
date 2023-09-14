@@ -2,11 +2,11 @@ import re
 
 from django.core.management.color import color_style
 
+from .visit_collection import VisitCollection
 from ..site_visit_schedules import site_visit_schedules, SiteVisitScheduleError
-from ..subject_schedule import NotOnScheduleForDateError, NotOnScheduleError
+from ..subject_schedule import NotOnScheduleError, NotOnScheduleForDateError
 from ..subject_schedule import SubjectSchedule, SubjectScheduleError
 from ..visit import Visit
-from .visit_collection import VisitCollection
 
 style = color_style()
 
@@ -24,7 +24,6 @@ class AlreadyRegisteredVisit(Exception):
 
 
 class Schedule:
-
     """A class that represents a "schedule" of visits.
 
     Is contained by a "visit schedule".
@@ -94,19 +93,22 @@ class Schedule:
         off of a schedule.
         """
         if not self._subject:
-            visit_schedule, schedule = site_visit_schedules.get_by_onschedule_model_schedule_name(
-                self.onschedule_model, name=self.name)
+            visit_schedule, schedule = (
+                site_visit_schedules.get_by_onschedule_model_schedule_name(
+                    self.onschedule_model, name=self.name))
             if schedule.name != self.name:
                 raise ValueError(
                     f'Site visit schedules return the wrong schedule object. '
-                    f'Expected {repr(self)} for onschedule_model={self.onschedule_model}. '
+                    f'Expected {repr(self)} for onschedule_mo'
+                    f'del={self.onschedule_model}. '
                     f'Got {repr(schedule)}.')
             self._subject = self.subject_schedule_cls(
                 visit_schedule=visit_schedule, schedule=self)
         return self._subject
 
     def put_on_schedule(self, onschedule_model_obj=None, base_appt_datetime=None,
-                        subject_identifier=None, onschedule_datetime=None, schedule_name=None):
+                        subject_identifier=None, onschedule_datetime=None,
+                        schedule_name=None):
         """Wrapper method to puts a subject onto this schedule.
         """
         self.subject.put_on_schedule(

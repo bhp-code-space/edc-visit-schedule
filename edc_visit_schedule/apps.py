@@ -8,7 +8,6 @@ from django.core.management.color import color_style
 from .site_visit_schedules import site_visit_schedules
 from .system_checks import visit_schedule_check
 
-
 style = color_style()
 
 
@@ -19,7 +18,6 @@ class AppConfig(DjangoAppConfig):
     validate_models = True
 
     def ready(self):
-        from .signals import offschedule_model_on_post_save, onschedule_model_on_post_save
         sys.stdout.write(f'Loading {self.verbose_name} ...\n')
         site_visit_schedules.autodiscover()
         sys.stdout.write(f' Done loading {self.verbose_name}.\n')

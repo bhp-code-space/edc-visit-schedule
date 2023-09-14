@@ -1,17 +1,18 @@
-import pytz
-
 from datetime import datetime
-from django.test import TestCase, tag
+
+import pytz
+from dateutil.relativedelta import relativedelta
+from django.test import tag, TestCase
 from edc_appointment.models import Appointment
 from edc_base import get_utcnow
 from edc_base.tests import SiteTestCaseMixin
 from edc_facility.import_holidays import import_holidays
 
+from .models import CrfOne, OffSchedule, OnSchedule, SubjectVisit
+from .visit_schedule import visit_schedule
 from ..constants import OFF_SCHEDULE, ON_SCHEDULE
 from ..models import SubjectScheduleHistory
-from ..site_visit_schedules import site_visit_schedules, RegistryNotLoaded
-from .models import OnSchedule, OffSchedule, SubjectVisit, CrfOne
-from .visit_schedule import visit_schedule
+from ..site_visit_schedules import RegistryNotLoaded, site_visit_schedules
 
 
 class TestModels(SiteTestCaseMixin, TestCase):
@@ -25,7 +26,7 @@ class TestModels(SiteTestCaseMixin, TestCase):
     def test_str(self):
         obj = OnSchedule.objects.create(subject_identifier='1234')
         self.assertIn('1234', str(obj))
-        self.assertEqual(obj.natural_key(), ('1234', ))
+        self.assertEqual(obj.natural_key(), ('1234',))
         self.assertEqual(obj, OnSchedule.objects.get_by_natural_key(
             subject_identifier='1234'))
 
@@ -34,7 +35,7 @@ class TestModels(SiteTestCaseMixin, TestCase):
             subject_identifier='1234')
         obj = OffSchedule.objects.create(subject_identifier='1234')
         self.assertIn('1234', str(obj))
-        self.assertEqual(obj.natural_key(), ('1234', ))
+        self.assertEqual(obj.natural_key(), ('1234',))
         self.assertEqual(obj, OffSchedule.objects.get_by_natural_key(
             subject_identifier='1234'))
 
@@ -90,7 +91,7 @@ class TestModels(SiteTestCaseMixin, TestCase):
         """
         OnSchedule.objects.create(
             subject_identifier='1234',
-            onschedule_datetime=datetime(2019, 12, 1, 0, 0, 0, 0, pytz.utc))
+            onschedule_datetime=get_utcnow() - relativedelta(years=1))
         self.assertEqual(Appointment.objects.all().count(), 4)
         appointment = Appointment.objects.all().order_by('appt_datetime').first()
         subject_visit = SubjectVisit.objects.create(
@@ -153,6 +154,6 @@ class TestModels(SiteTestCaseMixin, TestCase):
 
     def test_natural_key(self):
         obj = OnSchedule.objects.create(subject_identifier='1234')
-        self.assertEqual(obj.natural_key(), ('1234', ))
+        self.assertEqual(obj.natural_key(), ('1234',))
         obj = OffSchedule.objects.create(subject_identifier='1234')
-        self.assertEqual(obj.natural_key(), ('1234', ))
+        self.assertEqual(obj.natural_key(), ('1234',))

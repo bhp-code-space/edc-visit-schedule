@@ -1,14 +1,12 @@
-from ..schedule import Schedule
-from ..visit import FormsCollection, Crf, Visit
-from ..visit_schedule import VisitSchedule
-
 from dateutil.relativedelta import relativedelta
 
+from ..schedule import Schedule
+from ..visit import Crf, FormsCollection, Visit
+from ..visit_schedule import VisitSchedule
 
 crfs = FormsCollection(
-    Crf(show_order=1, model=f'edc_visit_tracking.crfone', required=True),
+    Crf(show_order=1, model='edc_visit_tracking.crfone', required=True),
 )
-
 
 visit0 = Visit(
     code='1000',
@@ -69,12 +67,10 @@ visit_schedule = VisitSchedule(
 
 visit_schedule.add_schedule(schedule)
 
-
 visit_schedule2 = VisitSchedule(
     name='visit_schedule2',
     offstudy_model='edc_visit_schedule.subjectoffstudy2',
     death_report_model='edc_visit_schedule.deathreport')
-
 
 schedule2 = Schedule(
     name='schedule2',

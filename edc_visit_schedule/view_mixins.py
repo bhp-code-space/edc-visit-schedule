@@ -25,13 +25,14 @@ class VisitScheduleViewMixin(ContextMixin):
 
                 onschedule_model_obj = self.get_onschedule_model_obj(schedule)
                 is_onschedule = schedule.is_onschedule(
-                        subject_identifier=self.kwargs.get(
-                            'subject_identifier'),
-                        report_datetime=get_utcnow())
-                self.set_current_schedule(
-                    onschedule_model_obj=onschedule_model_obj,
-                    schedule=schedule, visit_schedule=visit_schedule,
-                    is_onschedule=is_onschedule)
+                    subject_identifier=self.kwargs.get(
+                        'subject_identifier'),
+                    report_datetime=get_utcnow())
+                if onschedule_model_obj:
+                    self.set_current_schedule(
+                        onschedule_model_obj=onschedule_model_obj,
+                        schedule=schedule, visit_schedule=visit_schedule,
+                        is_onschedule=is_onschedule)
         context.update(
             visit_schedules=self.visit_schedules,
             current_onschedule_model=self.current_onschedule_model,

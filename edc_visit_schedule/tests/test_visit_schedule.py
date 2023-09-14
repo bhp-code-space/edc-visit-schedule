@@ -55,7 +55,7 @@ class TestVisitSchedule(SiteTestCaseMixin, TestCase):
             death_report_model='edc_visit_schedule.deathreport')
         errors = visit_schedule.check()
         if errors:
-            self.fail(f'visit_schedule.check() unexpectedly failed')
+            self.fail('visit_schedule.check() unexpectedly failed')
 
 
 class TestVisitSchedule2(SiteTestCaseMixin, TestCase):
