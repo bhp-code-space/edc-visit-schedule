@@ -1,8 +1,4 @@
-[![Build Status](https://travis-ci.org/clinicedc/edc-visit-schedule.svg?branch=develop)](https://travis-ci.org/clinicedc/edc-visit-schedule)
-[![Coverage Status](https://coveralls.io/repos/clinicedc/edc-visit-schedule/badge.svg)](https://coveralls.io/r/clinicedc/edc-visit-schedule)
-
-
-# edc-visit-schedule
+# edc-visit-schedule ![Build Status](https://github.com/bhp-code-space/edc-visit-schedule/actions/workflows/django.yml/badge.svg) [![Coverage Status](https://codecov.io/gh/bhp-code-space/edc-visit-schedule/branch/develop/graph/badge.svg?token=088539cd-b621-47d8-a2e5-181d7a28990d)](https://codecov.io/gh/bhp-code-space/edc-data-manager)
 
 Add data collection schedules to your app.
 
