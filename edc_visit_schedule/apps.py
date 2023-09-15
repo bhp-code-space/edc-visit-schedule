@@ -18,6 +18,7 @@ class AppConfig(DjangoAppConfig):
     validate_models = True
 
     def ready(self):
+        import edc_visit_schedule.signals
         sys.stdout.write(f'Loading {self.verbose_name} ...\n')
         site_visit_schedules.autodiscover()
         sys.stdout.write(f' Done loading {self.verbose_name}.\n')
@@ -25,7 +26,6 @@ class AppConfig(DjangoAppConfig):
 
 
 if settings.APP_NAME == 'edc_visit_schedule':
-
     from dateutil.relativedelta import MO, TU, WE, TH, FR, SA, SU
     from edc_facility.apps import AppConfig as BaseEdcFacilityAppConfig
     from edc_visit_tracking.apps import AppConfig as BaseEdcVisitTrackingAppConfig
